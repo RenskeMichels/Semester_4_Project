@@ -1,24 +1,11 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <title>Project | Blok 4</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="#"> Home </a></li>
-                    <li><a href="#"> Organisme </a></li>
-                    <li><a href="#"> Protein </a></li>
-                    <li><a href="#"> BLAST </a></li>
-                    <li><a href="#"> Over ons </a></li>
-                </ul>
-            </nav>
+{% extends "baseapp.html" %}
+{% block title %} Home {% endblock %}
 
+{% block body %}
 
-        </header>
+    Some content
+{% endblock %}
 
-</body>
-</html>
+{% block footer %}
+
+{% endblock %}

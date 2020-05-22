@@ -1,0 +1,119 @@
+/* If there is a merge conflict you can remove the navbar and the footer,
+   hold the body of the page */
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: darkcyan;
+    position: absolute;
+}
+header{
+    background-color: blueviolet;
+    overflow: hidden;
+    padding: 30px;
+    width: 100%;
+
+}
+
+header nav{
+    float: right;
+
+}
+
+header nav ul li{
+    display: inline;
+
+}
+
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+    background-color: lightseagreen;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+
+}
+
+
+header nav ul li a:hover{
+    color: lightseagreen;
+    background-color: white;
+
+}
+
+/***** Dont remove below when merge conflict occurs ************/
+
+
+#hoofdimg{
+    width: 100%;
+    height: 400px;
+}
+
+/**************** organisme **************************/
+
+.filter, .res{
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+.filter{
+
+    background: lightseagreen;
+}
+
+.res{
+    background-color: lightblue;
+}
+
+#resultaten{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+#resultaten th{
+    border: 1px solid #ffffff;
+}
+
+.filter h2{
+    text-align: center;
+}
+
+
+.filter select, .filter input[type=text], .filter input[type=number]{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filter input[type=checkbox]{
+    margin-bottom: 10px;
+}
+
+.filter #optioncontent{
+    display: none;
+}
+
+.filter #submitorg, .filter #submiteiwit{
+    display: block;
+    padding: 5px;
+}
+
+
+
+/***** This can be removed *******/
+footer{
+    position: relative;
+    width: 100%;
+    background-color: lightseagreen;
+}

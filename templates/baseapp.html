@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="/static/eindprojectcss.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='eindproject.css') }}">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="#"> Home </a></li>
-                <li><a href="#"> Organisme </a></li>
-                <li><a href="#"> Protein </a></li>
+                <li><a href="/"> Home </a></li>
+                <li><a href="/organisme"> Organisme </a></li>
+                <li><a href="/protein"> Protein </a></li>
                 <li><a href="#"> BLAST </a></li>
                 <li><a href="#"> Over ons </a></li>
             </ul>
         </nav>
     </header>
-    <br>
+
+    <img id= "hoofdimg" src = "/static/champignonteeld.jpg" alt = "plaatje champignon">
     {% block body %}
 
     {% endblock %}
-    <br>
-<footer>
+
+    <footer>
     {% block footer %}
 
     {% endblock %}
@@ -32,7 +33,10 @@
     <li><a href="#"> Protein </a></li>
     <li><a href="#"> BLAST </a></li>
     <li><a href="#"> Over ons </a></li>
-</footer>
+        <br>
+    </footer>
+    <script type=text/javascript src="{{ url_for('static',
+            filename='functies.js') }}"></script>
 </body>
 
 </html>
