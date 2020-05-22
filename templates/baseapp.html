@@ -18,7 +18,7 @@
         </nav>
     </header>
 
-    <img id= "hoofdimg" src = "/static/champignonteeld.jpg" alt = "plaatje champignon">
+    <img id="hoofdimg" src = "/static/champignonteeld1.jpg" alt = "plaatje champignon">
     {% block body %}
 
     {% endblock %}
@@ -35,8 +35,9 @@
     <li><a href="#"> Over ons </a></li>
         <br>
     </footer>
-    <script type=text/javascript src="{{ url_for('static',
-            filename='functies.js') }}"></script>
+    {% block scripts %}
+
+    {% endblock %}
 </body>
 
 </html>
