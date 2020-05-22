@@ -1,0 +1,20 @@
+{% extends "base app.html" %}
+{% block title %}
+    Blast
+{% endblock %}
+{% block body %}
+    <h2>BLAST</h2><br>
+    Hier kan je een sequentie invoeren die dan geblast gaat worden.<br>
+    De resultaten worden dan hier onder weergeven.<br>
+    <form method="post">
+        <label for="input_seq"> Invoer sequentie:</label><br>
+        <textarea id="input_seq" rows="4" cols="70" name="seq">Vul hier een sequentie in.</textarea>
+        <input type="submit" value="Verzend">
+    </form>
+
+
+{% endblock %}
+{% block footer %}
+    Als er een sequentie geblast moet worden, kan dit hier.<br>
+    De resultaten van BLAST worden hier weergeven.<br>
+{% endblock %}
