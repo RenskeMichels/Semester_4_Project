@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/eindprojectcss.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#"> Home </a></li>
+                <li><a href="#"> Organisme </a></li>
+                <li><a href="#"> Protein </a></li>
+                <li><a href="#"> BLAST </a></li>
+                <li><a href="#"> Over ons </a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+    {% block body %}
+
+    {% endblock %}
+    <br>
+<footer>
+    {% block footer %}
+
+    {% endblock %}
+    <br>
+    <li><a href="#"> Home </a></li>
+    <li><a href="#"> Organisme </a></li>
+    <li><a href="#"> Protein </a></li>
+    <li><a href="#"> BLAST </a></li>
+    <li><a href="#"> Over ons </a></li>
+</footer>
+</body>
+
+</html>
