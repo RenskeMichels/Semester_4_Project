@@ -3,28 +3,48 @@
  * een checkbox is aangevinkt.
  */
 
-alert("Hello??");
 
 let checkbox = document.getElementById("optionparameters");
 
-checkbox.addEventListener("click", function () {
+// Voeg alleen listener toe op de pagina's waar deze wordt gebruikt.
+if(checkbox) {
+    checkbox.addEventListener("click", function () {
 
-    let content = document.getElementById("optioncontent");
+        let content = document.getElementById("optioncontent");
 
-    if (checkbox.checked){
-        content.style.display = "block";
-    }
-    else{
-        content.style.display = "none";
-    }
-})
+        if (checkbox.checked) {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    })
+}
+
+
+// Globale index voor de images.
+let i = 0;
 
 /**
- * Deze functie zorgt voor een image slider en roept zichzelf steeds aan
- * */
+ * Elke keer als deze functie wordt aangeroepen wordt er een
+ * nieuwe afbeelding 1.3 seconden getoond.
+ */
+function changeImage() {
 
-let hoofdimg = document.getElementById("hoofdimg");
+    let hoofdimg = document.getElementById("hoofdimg");
+    let images = ["/static/champignonteeld1.jpg", "/static/champignonteeld2.jpg",
+                    "/static/champignonteeld3.jpg"];
+    // Verander afbeelding
+     hoofdimg.src = images[i];
+     // Verander de index
+     if(i < images.length - 1) {
+            i++;
+     }
+     else{
+         i = 0;
+     }
+    // Wacht 1.3 seconden.
+     setTimeout(changeImage, 1300)
+}
 
-hoofdimg.addEventListener("click", function () {
+window.onload = changeImage;
 
-})
