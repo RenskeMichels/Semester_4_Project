@@ -6,28 +6,28 @@
     <form class = "filter" method="post">
     <h2> filter op eiwit </h2>
 
-        <label for="seleiwit">Selecteer de eiwitten waar je resultaten
+        <label for="seleiwitfunc">Selecteer de eiwitfuncties waar je resultaten
         van wilt zien</label>
 
-        <select name="seleiwit" id="seleiwit">
+        <select name="seleiwitfunc" id="seleiwitfunc">
         <!-- Haal eiwit op uit database ?-->
-            <option value="alleeiwitten" selected> Alle eiwitten </option>
-            <option value="eiwitnaam">eiwit1</option>
-            <option value="eiwit2naam">eiwit2</option>
-            <option value="eiwit3naam">eiwit3</option>
+            <option value="alleeiwittenfunc" selected> Alle eiwittenfuncties </option>
+            <option value="eiwitfunc">eiwitfunc1</option>
+            <option value="eiwit2func">eiwitfunc2</option>
+            <option value="eiwit3func">eiwitfunc3</option>
         </select>
 
-        <label for="seleiwit">Selecteer het eiwit waar je <strong>geen </strong>
+        <label for="seleiwit">Selecteer de eiwitfuncties waar je <strong>geen </strong>
             resultaten van wilt zien<br> Houdt ctrl(Windows) of Command (Mac)
             ingedrukt om er meerdere te kunnen selecteren</label>
         <!-- Haal alle eiwit uit db ?-->
-        <select name="filtereiwit" id="filtereiwit" multiple size="3">
-            <option value="eiwitnaam">eiwit1</option>
-            <option value="eiwit2naam">eiwit2</option>
-            <option value="eiwit3naam">eiwit3</option>
-            <option value="eiwit4naam">eiwit4</option>
-            <option value="eiwit5naam">eiwit5</option>
-            <option value="eiwit6naam">eiwit6</option>
+        <select name="filtereiwitfunc" id="filtereiwitfunc" multiple size="3">
+            <option value="eiwitfunc">eiwit1</option>
+            <option value="eiwit2func">eiwit2</option>
+            <option value="eiwit3func">eiwit3</option>
+            <option value="eiwit4func">eiwit4</option>
+            <option value="eiwit5func">eiwit5</option>
+            <option value="eiwit6func">eiwit6</option>
         </select>
         <label for="optionparameters"> Toon algoritme parameters</label>
         <input type="checkbox" id="optionparameters" name="optionparameters">
