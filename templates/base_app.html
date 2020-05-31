@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/eind1.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href=""> Home </a></li>
+                <li><a href="organisme"> Organisme </a></li>
+                <li><a href="proteines"> Protein </a></li>
+                <li><a href="blast"> BLAST </a></li>
+                <li><a href="overons"> Over ons </a></li>
+            </ul>
+        </nav>
+        <img src="../static/paddestoel%20daaf-03.png" alt="Logo van website"
+             width="100" height="100">
+    </header>
+    <br>
+    <div class="text">
+        <br>
+        {% block body %}
+
+        {% endblock %}
+        <br>
+    </div>
+
+    <footer>
+        <div>
+            <ul>
+                <li><a href=""> Home </a></li>
+                <li><a href="organisme"> Organisme </a></li>
+                <li><a href="proteines"> Protein </a></li>
+                <li><a href="blast"> BLAST </a></li>
+                <li><a href="overons"> Over ons </a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>
