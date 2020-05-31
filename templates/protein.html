@@ -1,3 +1,4 @@
+
 {% extends "baseapp.html" %}
 {% block title %} eiwit {% endblock %}
 
@@ -12,34 +13,30 @@
         <select name="seleiwitfunc" id="seleiwitfunc">
         <!-- Haal eiwit op uit database ?-->
             <option value="alleeiwittenfunc" selected> Alle eiwittenfuncties </option>
-            <option value="eiwitfunc">eiwitfunc1</option>
-            <option value="eiwit2func">eiwitfunc2</option>
-            <option value="eiwit3func">eiwitfunc3</option>
+            {% for eiwitfunctie in eiwitfuncties_cursor %}
+            <option value="{{ eiwitfunctie[0] }}"> {{ eiwitfunctie[0] }}</option>
+            {% endfor %}
         </select>
 
-        <label for="seleiwit">Selecteer de eiwitfuncties waar je <strong>geen </strong>
-            resultaten van wilt zien<br> Houdt ctrl(Windows) of Command (Mac)
-            ingedrukt om er meerdere te kunnen selecteren</label>
-        <!-- Haal alle eiwit uit db ?-->
-        <select name="filtereiwitfunc" id="filtereiwitfunc" multiple size="3">
-            <option value="eiwitfunc">eiwit1</option>
-            <option value="eiwit2func">eiwit2</option>
-            <option value="eiwit3func">eiwit3</option>
-            <option value="eiwit4func">eiwit4</option>
-            <option value="eiwit5func">eiwit5</option>
-            <option value="eiwit6func">eiwit6</option>
-        </select>
+        <label for="percentageidentity"> Voer het identity percentage in waarvan je
+            resultaten wilt zien</label>
+        <input type="number" name="percentageidentity" id="percentageidentity"
+        min="1" max="100" step="1" placeholder="Voer een geheel getal tussen 1 en 100 in"
+        required>
+
         <label for="optionparameters"> Toon algoritme parameters</label>
         <input type="checkbox" id="optionparameters" name="optionparameters">
 
         <div id = "optioncontent">
 
-            <label for = "maxres"> Max aantal rijen </label>
-            <input type = "number" id="maxres" name="maxres" min = "5"
-            max = "100" step="1" placeholder="Voer een geheel getal tussen 5 en 100 in">
-
+            <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
+            <select name="aantalres" id ="aantalres">
+                <option value="10"> 10 </option>
+                <option value="20"> 20 </option>
+                <option value="50"> 50 </option>
+            </select>
             <label for = "evalue"> E-value(kleiner dan): </label>
-            <input type = "text" id="evalue" name="evalue">
+            <input type = "number" id="evalue" name="evalue">
         </div>
 
         <input id= "submiteiwit" type="submit" name ="verzend" value="Belijk resultaten">
@@ -62,6 +59,18 @@
         <th> Accessiecode </th>
     </tr>
     </table>
+
+    {% if request.args.get('page') and  (not pagenummer == 0) %}
+        <form id="previous"  method="get">
+            <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+            <button> Vorige </button>
+        </form>
+    {% endif %}
+
+    <form id="next" method="get">
+        <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+        <button id= "nextbtn" > Volgende </button>
+    </form>
 
     </div>
 {% endblock %}

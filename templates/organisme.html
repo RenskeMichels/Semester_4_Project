@@ -6,115 +6,86 @@
     <form class = "filter" method="post">
     <h2> filter op organisme </h2>
 
+        <p> <strong> Houd er bij het filteren rekening mee dat, als je filtert
+            op familie en geslacht,
+            het geslacht binnen deze familie moet vallen
+            om resultaten te verkrijgen. </strong></p>
 
-        <label for="selfamilie">Selecteer de families waar je resultaten
+        <label for="selfamilie">Selecteer de familie waar je resultaten
         van wilt zien</label>
 
         <select name="selfamilie" id="selfamilie">
         <!-- Haal families op uit database -->
-            <option value="allefamilies" selected> Alle families </option>
-            <option value="familienaam">familie1</option>
-            <option value="familie2naam">familie2</option>
-            <option value="familie3naam">familie3</option>
+
+            <option value="allefamilies" selected> Alle families (met onbekenden)</option>
+
+            {% for row in (familie_cursor) %}
+
+                <option value="{{ row[0] }}"> {{ row[0] }}</option>
+
+            {% endfor %}
         </select>
 
         <!-- Als een familie hierboven is geslecteerd, toon dan alleen
              geslachten binnen deze familie (als dat mogelijk is) -->
 
-        <label for="selgeslacht">Selecteer de geslachten waar je resultaten
+        <label for="selgeslacht">Selecteer het geslacht waar je resultaten
         van wilt zien</label>
 
         <select name="selgeslacht" id="selgeslacht">
-        <!-- Haal geslachten op uit database -->
-            <option value="allegeslachten" selected> Alle geslachten </option>
-            <option value="geslachtnaam">geslacht1</option>
-            <option value="geslacht2naam">geslacht2</option>
-            <option value="geslacht3naam">geslacht3</option>
+
+            <option value="allegeslachten" selected> Alle geslachten (met onbekenden)</option>
+            <!-- Haal geslachten op uit database -->
+
+            {% for row in (geslachten_cursor) %}
+
+            <option value="{{ row[0] }} "> {{ row[0] }}</option>
+
+            {% endfor %}
         </select>
 
         <!-- Als een geslacht hierboven is geslecteerd, toon dan alleen
              soorten binnen dit geslacht (als dat mogelijk is)-->
-        <label for="selsoort">Selecteer de soorten waar je resultaten
+        <label for="selsoort">Selecteer de soort waar je resultaten
         van wilt zien</label>
 
         <select name="selsoort" id="selsoort">
         <!-- Haal soorten op uit database -->
-            <option value="allesoorten" selected> Alle soorten </option>
-            <option value="soortnaam">soort1</option>
-            <option value="soort2naam">soort2</option>
-            <option value="soort3naam">soort3</option>
+            <option value="allesoorten" selected> Alle soorten (met onbekenden) </option>
+            {% for row in (soorten_cursor) %}
+
+            <option value="{{ row[0] }}"> {{ row[0] }}</option>
+
+            {% endfor %}
         </select>
 
-        <!-- Filters, om deze niet te tonen in resultatan,
-              Tegenovergestelde als filters hierboven -->
-        <label for="filterfamilie">Selecteer de families waar je <strong>geen </strong>
-            resultaten van wilt zien<br> Houdt ctrl(Windows) of Command (Mac)
-            ingedrukt om er meerdere te kunnen selecteren</label>
-        <!-- Haal alle families uit db -->
-        <select name="filterfamilie" id="filterfamilie" multiple size="3">
-            <option value="famnaam">fam1</option>
-            <option value="fam2naam">fam2</option>
-            <option value="fam3naam">fam3</option>
-            <option value="fam4naam">fam4</option>
-            <option value="fam5naam">fam5</option>
-            <option value="fam6naam">fam6</option>
-        </select>
-
-        <!-- Als hierboven gefilterd is op familie toon dan alleen de
-             geslachten die niet bij deze familie horen(als dat mogelijk is) -->
-
-        <label for="filtergeslacht">Selecteer de geslachten waar je <strong>geen </strong>
-            resultaten van wilt zien<br> Houdt ctrl(Windows) of Command (Mac)
-            ingedrukt om er meerdere te kunnen selecteren</label>
-        <!-- Haal alle geslachten uit db
-             Join blastresulten met geslacht en familie where familienaam not in
-             Filterlijst van hierboven (als dat mogelijk is).
-         -->
-        <select name="filtergeslacht" id="filtergeslacht" multiple size="3">
-            <option value="geslachtnaam">geslacht1</option>
-            <option value="geslacht2naam">geslacht2</option>
-            <option value="geslacht3naam">geslacht3</option>
-            <option value="geslacht4naam">geslacht4</option>
-            <option value="geslacht5naam">geslacht5</option>
-            <option value="geslacht6naam">geslacht6</option>
-        </select>
-
-
-        <label for="filtersoort">Selecteer de soorten waar je <strong>geen </strong>
-            resultaten van wilt zien<br> Houdt ctrl(Windows) of Command (Mac)
-            ingedrukt om er meerdere te kunnen selecteren</label>
-        <!-- Haal alle organismen uit db
-             join blastres met geslacht en familie en toon hierbij
-             alleen soorten die binnen de niet uitgefilterde
-             geslachten en families vallen(als dat mogelijk is) -->
-        <select name="filtersoort" id="filtersoort" multiple size="3">
-            <option value="soortnaam">soort1</option>
-            <option value="soort2naam">soort2</option>
-            <option value="soort3naam">soort3</option>
-            <option value="soort4naam">soort4</option>
-            <option value="soort5naam">soort5</option>
-            <option value="soort6naam">soort6</option>
-        </select>
-
+        <label for="percentageidentity"> Voer het identity percentage in waarvan je
+            resultaten wilt zien</label>
+        <input type="number" name="percentageidentity" id="percentageidentity"
+        min="1" max="100" step="1" placeholder="Voer een geheel getal tussen 1 en 100 in"
+        required>
 
         <label for="optionparameters"> Toon algoritme parameters</label>
         <input type="checkbox" id="optionparameters" name="optionparameters">
 
         <div id = "optioncontent">
 
-            <label for = "maxres"> Max aantal rijen </label>
-            <input type = "number" id="maxres" name="maxres" min = "5"
-            max = "100" step="1" placeholder="Voer een geheel getal tussen 5 en 100 in">
-
+            <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
+            <select name="aantalres" id ="aantalres">
+                <option value="10"> 10 </option>
+                <option value="20" selected> 20 </option>
+                <option value="50"> 50 </option>
+            </select>
             <label for = "evalue"> E-value(kleiner dan): </label>
-            <input type = "text" id="evalue" name="evalue">
+            <input type = "number" id="evalue" name="evalue" min=0 step="any" max="3"
+                   placeholder="Voer een getal tussen 0 en 3">
         </div>
 
         <input id= "submitorg" type="submit" name ="verzend" value="Belijk resultaten">
     </form>
 
     <hr>
-    <div class = "res">
+    <div id="r" class = "res">
         <p> Hieronder komen de resultaten</p>
 
 
@@ -131,10 +102,34 @@
         <th> Positives </th>
         <th> Accessiecode </th>
     </tr>
+
+         {% for resultaat in resultaten_cursor %}
+             <tr>
+             {% for item in resultaat %}
+               <td> {{ item }}</td>
+             {% endfor %}
+             </tr>
+        {% endfor %}
+
     </table>
 
+        <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
+        waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
+         hierbij wordt op de eerste pagina de button vorige niet getoond-->
+
+    {% if request.args.get('page') and  (not pagenummer == 0) %}
+    <form id="previous" method="get">
+        <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+        <button> Vorige </button>
+    </form>
+    {% endif %}
+    <form id="next" method="get">
+        <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+        <button id= "nextbtn" > Volgende </button>
+    </form>
     </div>
 {% endblock %}
+
 
 {% block footer %}
     Samenvatting

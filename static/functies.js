@@ -17,7 +17,7 @@ if(checkbox) {
         } else {
             content.style.display = "none";
         }
-    })
+    });
 }
 
 
@@ -43,8 +43,7 @@ function changeImage() {
          i = 0;
      }
     // Wacht 1.3 seconden.
-     setTimeout(changeImage, 1300)
+     setTimeout(changeImage, 1300);
 }
 
 window.onload = changeImage;
-
