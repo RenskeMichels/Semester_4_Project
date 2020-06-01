@@ -68,6 +68,17 @@ header nav ul li a:hover{
     border-radius: 10px;
 
 }
+
+.filter h2{
+    font-size: 1.6em;
+}
+.waarschuwing{
+    font-size: 1.2em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: ivory;
+    font-weight: bold;
+}
 .filter{
 
     background: lightseagreen;
@@ -77,6 +88,10 @@ header nav ul li a:hover{
     background-color: lightblue;
 }
 
+.res p{
+    font-weight: bold;
+    font-size: 1.6em;
+}
 #resultaten{
     width: 100%;
     border-collapse: collapse;
@@ -86,6 +101,7 @@ header nav ul li a:hover{
 #resultaten th, #resultaten td{
     border: 1px solid #ffffff;
     text-align: center;
+    text-transform: capitalize;
 }
 
 .filter h2{

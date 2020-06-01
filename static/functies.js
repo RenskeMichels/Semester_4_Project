@@ -26,7 +26,7 @@ let i = 0;
 
 /**
  * Elke keer als deze functie wordt aangeroepen wordt er een
- * nieuwe afbeelding 1.3 seconden getoond.
+ * nieuwe afbeelding 2 seconden getoond.
  */
 function changeImage() {
 
@@ -42,8 +42,8 @@ function changeImage() {
      else{
          i = 0;
      }
-    // Wacht 1.3 seconden.
-     setTimeout(changeImage, 1300);
+    // Wacht 2 seconden.
+     setTimeout(changeImage, 2000);
 }
 
 window.onload = changeImage;

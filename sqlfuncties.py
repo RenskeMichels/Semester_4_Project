@@ -16,6 +16,7 @@ def connectie():
     return conn
 
 
+# ------------- Organisme pagina ------------------------
 def alle_families(conn):
     """
     Deze functie haalt alle familienamen op.
@@ -68,22 +69,27 @@ def resultaten_organisme(conn, aantal_per_pagina, percentage_identity,
     Hierbij worden de filter gegevens meegenomen, verder wordt per pagina
     door middel van het paginanummer de specifieke resultaten van die pagina
     getoond.
-    :param conn: de database connectie
-    :param aantal_per_pagina: het aantal resultaten per pagina
+    :param conn: De connectie
+    :param aantal_per_pagina: Het aantal resultaten per pagina
     :param percentage_identity: Het percentage identity
-    :param pagenummer: Het paginanummer.
+    :param pagenummer: Het  paginanummer
     :param e_value: De evalue
-    :return: de resultaten
+    :param familie: De familie
+    :param geslacht: Het geslacht
+    :param soort: De soort
+    :return: De resultaten
     """
 
     cursor = conn.cursor()
     start = int(aantal_per_pagina) * int(pagenummer)
-    sql = ("select distinct familienaam, geslachtsnaam, soortnaam, max_score, "
+    sql = ("select distinct header, familienaam, geslachtsnaam,"
+           " soortnaam, max_score, "
            "query_cover, e_value, percentage_identity, positives, "
            "accesie_code from blast_resultaten br join "
            "familie f on br.Familie_id = f.id join geslacht g "
            "on br.Geslacht_id = g.id join soort s on "
-           "br.Soort_id = s.id where percentage_identity > %s")
+           "br.Soort_id = s.id join sequences sq on br.Reads_id = sq.id "
+           "where percentage_identity > %s")
 
     if e_value != "":
         e_value = float(e_value)
@@ -99,24 +105,51 @@ def resultaten_organisme(conn, aantal_per_pagina, percentage_identity,
         sql += " and soortnaam = '%s'" % (soort, )
 
     sql += " limit %s offset %s"
-    print("sql", sql)
 
-    cursor.execute(sql, (int(percentage_identity), int(aantal_per_pagina), start))
+    cursor.execute(sql, (int(percentage_identity), int(aantal_per_pagina),
+                         start))
 
     rijen = cursor.fetchall()
-    print(rijen)
     cursor.close()
 
     return rijen
 
 
-def alle_eiwitfuncties(conn):
+# ------------- protein pagina ---------------------------
+def alle_eiwitnamen(conn):
 
     cursor = conn.cursor()
-    cursor.execute("select functie from eiwit_functies order by functie asc;")
+    cursor.execute("select distinct eiwit_naam from blast_resultaten order by"
+                   " eiwit_naam asc;")
     rijen = cursor.fetchall()
     cursor.close()
 
     return rijen
 
+
+def resultaten_protein(conn, aantal_per_pagina, percentage_identity,
+                       pagenummer, e_value, eiwitnaam):
+    cursor = conn.cursor()
+    start = int(aantal_per_pagina) * int(pagenummer)
+    sql = ("select distinct header, eiwit_naam, max_score, "
+           "query_cover, e_value, percentage_identity, positives, "
+           "accesie_code from blast_resultaten br join sequences sq"
+           " on br.Reads_id = sq.id  where percentage_identity > %s")
+
+    if e_value != "":
+        e_value = float(e_value)
+        sql += " and e_value < %s" % (e_value, )
+
+    if eiwitnaam != "alleeiwitnamen":
+        sql += " and eiwit_naam = '%s'" % (eiwitnaam, )
+
+    sql += " limit %s offset %s"
+
+    cursor.execute(sql, (int(percentage_identity),
+                         int(aantal_per_pagina), start))
+
+    rijen = cursor.fetchall()
+    cursor.close()
+
+    return rijen
 

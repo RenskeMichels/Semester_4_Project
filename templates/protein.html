@@ -5,16 +5,20 @@
 {% block body %}
 
     <form class = "filter" method="post">
-    <h2> filter op eiwit </h2>
+    <h2> Filter op eiwit </h2>
 
-        <label for="seleiwitfunc">Selecteer de eiwitfuncties waar je resultaten
+        <p class = "waarschuwing"> <strong> Houd er bij het filteren rekening
+            mee dat onbekende eiwitnamen niet meegenomen worden wanneer op een
+            specifieke naam wordt gefilterd. </strong></p>
+        <label for="seleiwitnaam">Selecteer de eiwitnamen waar je resultaten
         van wilt zien</label>
 
-        <select name="seleiwitfunc" id="seleiwitfunc">
+        <select name="seleiwitnaam" id="seleiwitnaam">
         <!-- Haal eiwit op uit database ?-->
-            <option value="alleeiwittenfunc" selected> Alle eiwittenfuncties </option>
-            {% for eiwitfunctie in eiwitfuncties_cursor %}
-            <option value="{{ eiwitfunctie[0] }}"> {{ eiwitfunctie[0] }}</option>
+            <option value="alleeiwitnamen" selected> Alle eiwitnamen
+                (met onbekenden) </option>
+            {% for eiwitnaam in eiwitnamen_cursor %}
+            <option value="{{ eiwitnaam[0] }}"> {{ eiwitnaam[0] }}</option>
             {% endfor %}
         </select>
 
@@ -31,12 +35,14 @@
 
             <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
             <select name="aantalres" id ="aantalres">
+                <option value="5"> 5 </option>
                 <option value="10"> 10 </option>
-                <option value="20"> 20 </option>
+                <option value="20" selected> 20 </option>
                 <option value="50"> 50 </option>
             </select>
             <label for = "evalue"> E-value(kleiner dan): </label>
-            <input type = "number" id="evalue" name="evalue">
+            <input type = "number" id="evalue" name="evalue" min=0 step="any" max="3"
+                   placeholder="Voer een getal tussen 0 en 3">
         </div>
 
         <input id= "submiteiwit" type="submit" name ="verzend" value="Belijk resultaten">
@@ -44,13 +50,19 @@
 
     <hr>
     <div class = "res">
-        <p> Hieronder komen de resultaten</p>
 
+     <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
+     {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
+        <p> Nog geen resultaten </p>
 
+    {% else %}
+
+    <p> Hierbij de resultaten </p>
     <table id="resultaten">
 
     <tr>
-        <th> Eiwitfunctie </th>
+        <th> Header</th>
+        <th> Eiwitnaam </th>
         <th> Score </th>
         <th> Query cover</th>
         <th> E-value </th>
@@ -58,7 +70,20 @@
         <th> Positives </th>
         <th> Accessiecode </th>
     </tr>
+
+        {% for resultaat in resultaten_cursor %}
+             <tr>
+             {% for item in resultaat %}
+               <td> {{ item }}</td>
+             {% endfor %}
+             </tr>
+        {% endfor %}
+
     </table>
+
+    <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
+         waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
+         hierbij wordt op de eerste pagina de button vorige niet getoond -->
 
     {% if request.args.get('page') and  (not pagenummer == 0) %}
         <form id="previous"  method="get">
@@ -71,7 +96,7 @@
         <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
         <button id= "nextbtn" > Volgende </button>
     </form>
-
+    {% endif %}
     </div>
 {% endblock %}
 

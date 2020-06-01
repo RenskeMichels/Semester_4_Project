@@ -1,15 +1,16 @@
 {% extends "baseapp.html" %}
-{% block title %} Organisme {% endblock %}
+{% block title %} organisme {% endblock %}
 
 {% block body %}
 
     <form class = "filter" method="post">
-    <h2> filter op organisme </h2>
+    <h2> Filter op organisme </h2>
 
-        <p> <strong> Houd er bij het filteren rekening mee dat, als je filtert
-            op familie en geslacht,
+        <p class = "waarschuwing"> <strong> Houd er bij het filteren rekening mee
+            dat, als je filtert op familie en geslacht,
             het geslacht binnen deze familie moet vallen
-            om resultaten te verkrijgen. </strong></p>
+            om resultaten te verkrijgen ook worden bij het filteren de onbekende
+            resultaten niet meegenomen. </strong></p>
 
         <label for="selfamilie">Selecteer de familie waar je resultaten
         van wilt zien</label>
@@ -72,6 +73,7 @@
 
             <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
             <select name="aantalres" id ="aantalres">
+                <option value="5"> 5 </option>
                 <option value="10"> 10 </option>
                 <option value="20" selected> 20 </option>
                 <option value="50"> 50 </option>
@@ -85,13 +87,18 @@
     </form>
 
     <hr>
-    <div id="r" class = "res">
-        <p> Hieronder komen de resultaten</p>
+    <div class = "res">
+    <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
+     {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
+        <p> Nog geen resultaten </p>
 
+    {% else %}
 
+    <p> Hierbij de resultaten </p>
     <table id="resultaten">
 
     <tr>
+        <th> Header </th>
         <th> Familie </th>
         <th> Geslacht </th>
         <th> Soort </th>
@@ -115,7 +122,7 @@
 
         <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
         waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
-         hierbij wordt op de eerste pagina de button vorige niet getoond-->
+         hierbij wordt op de eerste pagina de button vorige niet getoond -->
 
     {% if request.args.get('page') and  (not pagenummer == 0) %}
     <form id="previous" method="get">
@@ -127,7 +134,10 @@
         <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
         <button id= "nextbtn" > Volgende </button>
     </form>
+    {% endif %}
+
     </div>
+
 {% endblock %}
 
 
