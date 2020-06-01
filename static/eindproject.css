@@ -74,12 +74,16 @@ header nav ul li a:hover{
 }
 
 .filter label{
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: bold;
 }
+
+.filter select{
+    font-size: 1.1em;
+}
 .waarschuwing{
-    font-size: 1.4em;
-    margin-top: 5px;
+    font-size: 1.5em;
+    margin-top: 10px;
     margin-bottom: 5px;
     color: ivory;
     font-weight: bold;
