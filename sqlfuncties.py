@@ -89,7 +89,7 @@ def resultaten_organisme(conn, aantal_per_pagina, percentage_identity,
            "familie f on br.Familie_id = f.id join geslacht g "
            "on br.Geslacht_id = g.id join soort s on "
            "br.Soort_id = s.id join sequences sq on br.Reads_id = sq.id "
-           "where percentage_identity > %s")
+           "where percentage_identity > %s and header not like '>%'")
 
     if e_value != "":
         e_value = float(e_value)
@@ -134,7 +134,8 @@ def resultaten_protein(conn, aantal_per_pagina, percentage_identity,
     sql = ("select distinct header, eiwit_naam, max_score, "
            "query_cover, e_value, percentage_identity, positives, "
            "accesie_code from blast_resultaten br join sequences sq"
-           " on br.Reads_id = sq.id  where percentage_identity > %s")
+           " on br.Reads_id = sq.id  where percentage_identity > %s and header"
+           "not like '>%'")
 
     if e_value != "":
         e_value = float(e_value)

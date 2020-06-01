@@ -1,3 +1,6 @@
+# Pieter Verhoef
+# 24-5-2020
+
 from flask import Flask, render_template, request
 import sqlfuncties
 
@@ -24,12 +27,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    """ Home pagina """
     return render_template("index.html")
 
 
 @app.route("/organisme", methods=["GET", "POST"])
 def organisme():
-
+    """
+    Pagina om op organisme niveau te kunnen filteren op de BLAST resultaten
+    """
     global aantal_per_pagina_org, percentage_identity_org, e_value_org,\
         familie, geslacht, soort
 
@@ -44,23 +50,26 @@ def organisme():
     geslachten_cursor = sqlfuncties.alle_geslachten(conn)
     soorten_cursor = sqlfuncties.alle_soorten(conn)
 
+    # Deze resultaten cursor haalt aan de hand van de filters in het formulier
+    # de resultaten op.
     resultaten_cursor = ""
 
-    # Alleen resultaten laten zien wanneer een formulier is verzonden en
+    # Alleen resultaten laten zien wanneer een formulier is verzonden of
     # het paginanummer in de url staat.
     if "page" in request.args:
         if not (aantal_per_pagina_org is None):
-
+            # Haal resultaten op.
             resultaten_cursor = sqlfuncties. \
                 resultaten_organisme(conn, aantal_per_pagina_org,
                                      percentage_identity_org, pagenummer,
                                      e_value_org, familie, geslacht, soort)
 
     conn.close()
-
+    # Formulier ingevuld
     if request.method == 'POST':
 
         pagenummer = 0
+        # Haal formulier gegevens op.
         aantal_per_pagina_org = request.form.get("aantalres")
 
         percentage_identity_org = request.form.get("percentageidentity")
@@ -69,6 +78,7 @@ def organisme():
         geslacht = request.form.get("selgeslacht")
         soort = request.form.get("selsoort")
 
+        # Gebruik de gegevens van het formulier om de resultaten te bepalen.
         conn = sqlfuncties.connectie()
         resultaten_cursor = sqlfuncties.\
             resultaten_organisme(conn, aantal_per_pagina_org,
@@ -101,29 +111,32 @@ def protein():
     conn = sqlfuncties.connectie()
     eiwitnamen_cursor = sqlfuncties.alle_eiwitnamen(conn)
 
+    # Deze resultaten cursor haalt aan de hand van de filters in het formulier
+    # de resultaten op.
     resultaten_cursor = ""
 
     # Alleen resultaten laten zien wanneer een formulier is verzonden en
     # het paginanummer in de url staat.
     if "page" in request.args:
         if not (aantal_per_pagina_protein is None):
-
+            # Haal resultaten op.
             resultaten_cursor = sqlfuncties. \
                 resultaten_protein(conn, aantal_per_pagina_protein,
                                    percentage_identity_protein, pagenummer,
                                    e_value_protein, eiwitnaam)
 
     conn.close()
-
+    # Formulier verzonden
     if request.method == 'POST':
 
         pagenummer = 0
+        # Haal formulier gegevens op.
         aantal_per_pagina_protein = request.form.get("aantalres")
 
         percentage_identity_protein = request.form.get("percentageidentity")
         e_value_protein = request.form.get("evalue")
         eiwitnaam = request.form.get("seleiwitnaam")
-
+        # Gebruik de gegevens van het formulier om de resultaten te bepalen.
         conn = sqlfuncties.connectie()
         resultaten_cursor = sqlfuncties.\
             resultaten_protein(conn, aantal_per_pagina_protein,
