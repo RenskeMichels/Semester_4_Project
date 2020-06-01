@@ -1,6 +1,8 @@
 <!--
     Pieter Verhoef
     22-5-2020
+    Deze pagina bevat een formulier om op organisme niveau te kunnen filter op
+    BLAST resultaten, vervolgens worden deze resultaten getoond.
 -->
 
 {% extends "baseapp.html" %}
@@ -21,10 +23,9 @@
         van wilt zien</label>
 
         <select name="selfamilie" id="selfamilie">
-        <!-- Haal families op uit database -->
 
             <option value="allefamilies" selected> Alle families (met onbekenden)</option>
-
+            <!-- Loop door alle families in de database -->
             {% for row in (familie_cursor) %}
 
                 <option value="{{ row[0] }}"> {{ row[0] }}</option>
@@ -32,35 +33,29 @@
             {% endfor %}
         </select>
 
-        <!-- Als een familie hierboven is geslecteerd, toon dan alleen
-             geslachten binnen deze familie (als dat mogelijk is) -->
-
         <label for="selgeslacht">Selecteer het geslacht waar je resultaten
         van wilt zien</label>
 
         <select name="selgeslacht" id="selgeslacht">
 
             <option value="allegeslachten" selected> Alle geslachten (met onbekenden)</option>
-            <!-- Haal geslachten op uit database -->
-
+            <!-- Loop door alle geslachten in de database -->
             {% for row in (geslachten_cursor) %}
 
-            <option value="{{ row[0] }} "> {{ row[0] }}</option>
+                <option value="{{ row[0] }} "> {{ row[0] }}</option>
 
             {% endfor %}
         </select>
 
-        <!-- Als een geslacht hierboven is geslecteerd, toon dan alleen
-             soorten binnen dit geslacht (als dat mogelijk is)-->
         <label for="selsoort">Selecteer de soort waar je resultaten
         van wilt zien</label>
 
         <select name="selsoort" id="selsoort">
-        <!-- Haal soorten op uit database -->
             <option value="allesoorten" selected> Alle soorten (met onbekenden) </option>
+            <!-- Loop door alle soorten in de database -->
             {% for row in (soorten_cursor) %}
 
-            <option value="{{ row[0] }}"> {{ row[0] }}</option>
+                <option value="{{ row[0] }}"> {{ row[0] }}</option>
 
             {% endfor %}
         </select>
@@ -71,11 +66,11 @@
         min="1" max="100" step="1" placeholder="Voer een geheel getal tussen 1 en 100 in"
         required>
 
+        <!-- Optionele algoritme filters, toon deze bij aanklikken checkbox -->
         <label for="optionparameters"> Toon algoritme parameters</label>
         <input type="checkbox" id="optionparameters" name="optionparameters">
 
         <div id = "optioncontent">
-
             <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
             <select name="aantalres" id ="aantalres">
                 <option value="5"> 5 </option>
@@ -96,7 +91,7 @@
     <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
      {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
         <p> Nog geen resultaten </p>
-
+    <!-- Toon resultaten -->
     {% else %}
 
     <p> Hierbij de resultaten </p>
@@ -114,7 +109,7 @@
         <th> Positives </th>
         <th> Accessiecode </th>
     </tr>
-
+         <!-- Loop door alle resultaten en zet dit in de tabel -->
          {% for resultaat in resultaten_cursor %}
              <tr>
              {% for item in resultaat %}
@@ -126,8 +121,8 @@
     </table>
 
         <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
-        waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
-         hierbij wordt op de eerste pagina de button vorige niet getoond -->
+         waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
+         hierbij wordt op de eerste pagina de button vorige niet getoond. -->
 
     {% if request.args.get('page') and  (not pagenummer == 0) %}
     <form id="previous" method="get">

@@ -93,14 +93,18 @@ def organisme():
                                resultaten_cursor=resultaten_cursor)
 
     return render_template("organisme.html", pagenummer=pagenummer,
-                           familie_cursor=familie_cursor, geslachten_cursor=
-                           geslachten_cursor, soorten_cursor=soorten_cursor,
+                           familie_cursor=familie_cursor,
+                           geslachten_cursor=geslachten_cursor,
+                           soorten_cursor=soorten_cursor,
                            resultaten_cursor=resultaten_cursor)
 
 
 @app.route("/protein", methods=["GET", "POST"])
 def protein():
-
+    """
+    Pagina om op protein namen
+    te kunnen filteren op de BLAST resultaten
+    """
     global aantal_per_pagina_protein, percentage_identity_protein,\
            e_value_protein, eiwitnaam
 
