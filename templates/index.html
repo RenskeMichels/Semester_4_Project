@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <title>Project | Blok 4</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="#"> Home </a></li>
-                    <li><a href="#"> Organisme </a></li>
-                    <li><a href="#"> Protein </a></li>
-                    <li><a href="#"> BLAST </a></li>
-                    <li><a href="#"> Over ons </a></li>
-                </ul>
-            </nav>
+{% extends "baseapp.html" %}
+{% block title %} Home {% endblock %}
+{% block body %}
+    <h2>Inleiding van website</h2>
+    <p>
+        De champignon (Agaricus bisporus) is een schimmel die wordt geteeld in compost. Champignontelers hebben het in <BR>
+        Nederland moeilijk, steeds meer verdwijnen er uit Nederland vanwege hoge vaste kosten en soms, na maanden zorg, <BR>
+        een te kleine oogst. Een van de grootste problemen voor de champignontelers is dat de oogst sterk kan variëren. <BR>
+        Dit is in veel gevallen grotendeels het gevolg van onder andere pathogene microflora die zich bevinden in de <BR>
+        compost en de kweek van de champignons tegenwerken.<BR>
+        <br>
+        Het manipuleren van de microflora in de compost zou de oogst van de champignons groter kunnen maken en meer kunnen stabiliseren.<BR>
+        <br>
+        Daarom hebben wij aan een project gewerkt dat de micro-organismen in de compost detecteert, karakteriseert en<br>
+        kwantificeert. Dit creëert inzicht over de aanwezigheid van diverse micro-organismen die een positieve of<br>
+        negatieve invloed kunnen hebben op de compost. Wanneer deze pathogene micro-organismen deels verwijdert zouden<br>
+        worden zou dat een enorme boost geven aan de groei van de champignons en de oogst verbeteren. Door een constantere<br>
+        lage hoeveelheid pathogene micro-organismen zou de oogst ook stabieler zijn en zouden champignontelers hun<br>
+        oogstwaarde kunnen schatten, zelfs voor ze beginnen met de kweek.<br>
 
-
-        </header>
-
-</body>
-</html>
+        Door ons project is er een overzicht van mogelijk pathogene micro-organismen. Hierdoor kan er mogelijk een <br>
+        milieuvriendelijke bestrijding onderzocht worden van pathogene micro-organismen in de compost.<br>
+        <br>
+        Onze database is gevuld met de BLAST-resultaten van 100 verschillende sequenties, elk bestaande uit een forward<br>
+        en reverse read die zijn gevonden in monsters genomen van de champignon compost.<br>
+        De BLAST-resultaten van dit project zijn met het BLAST-algoritme BLASTx gevonden. BLASTx transleert een<br>
+        nucleotidesequentie en vergelijkt deze met eiwitsequenties uit een grote database. Als resultaat krijg je de<br>
+        meest overeenkomstige eiwitten.<br>
+        <br>
+        Championtelers hebben moeilijk in Nederland. Er verdwijnen er steeds meer. Dit komt door de hoge kosten <br>
+        en te weinig inkomsten. Mogelijk zou het manipuleren van de microflora in de compost de opbrengst kunnen verhogen <br>
+        Wij hebben daarom gewerkt aan een project waarbij we de micro organismes zijn gaan indentificeren.<br>
+        Verder hebben we onze database gevuld met in totaal 200 sequenties, en daarvan de BLAST resultaten.<br>
+    </p>
+{% endblock %}
