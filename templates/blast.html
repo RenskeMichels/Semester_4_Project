@@ -3,45 +3,61 @@
     Blast
 {% endblock %}
 {% block body %}
-    <h2>BLAST</h2><br>
-    Hier kan je een sequentie invoeren die dan geblast gaat worden.<br>
-    De resultaten worden dan hier onder weergeven.<br>
-    <form method="post">
-        <label for="input_seq"> Invoer sequentie:</label><br>
-        <textarea id="input_seq" rows="4" cols="70" name="seq">Vul hier een sequentie in.</textarea>
-        <input type="submit" value="Verzend">
+
+    <form class="filter" method="post">
+
+        <h2>BLAST</h2>
+        <p> Hier kan je een sequentie invoeren die geblast gaat worden.
+            De resultaten worden dan hier onder weergeven.</p>
+        {% if bericht %}
+            <p> {{ bericht }}</p>
+        {% endif %}
+        <label for="blastseq"> Voer sequentie in: </label><br>
+        <textarea id="blastseq" rows="4" cols="70" name="blastseq"
+        placeholder="Vul hier een sequentie in." required></textarea>
+        <input type="submit" id="submitblast" name ="verzend" value="BLAST">
     </form>
+
     <div class = "res">
-    <p> Hieronder komen de resultaten</p>
-    <table id="resultaten">
-<tr>
-    <th> Familie </th>
-    <th> Geslacht </th>
-    <th> Soort </th>
-    <th> Score </th>
-    <th> Query cover</th>
-    <th> E-value </th>
-    <th> Percentage-identity</th>
-    <th> Positives </th>
-    <th> Accessiecode </th>
-</tr>
-</table>
-    <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
-    waarbij het mogelijk is om naar de vorige en volgende pagina te gaan. -->
-<form id="previous" class= "disableprev" method="get">
-    <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
-    <button> Vorige </button>
-</form>
-<form id="next" method="get">
-    <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
-    <button id= "nextbtn" > Volgende </button>
-</form>
+     <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
+     {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
+        <p> Nog geen resultaten </p>
+
+     <!-- Toon resultaten -->
+    {% else %}
+
+        <p> Hierbij de resultaten </p>
+
+        <table id="resultaten">
+            <tr>
+                <th> Familie </th>
+                <th> Geslacht </th>
+                <th> Soort </th>
+                <th> Score </th>
+                <th> Query cover</th>
+                <th> E-value </th>
+                <th> Percentage-identity</th>
+                <th> Positives </th>
+                <th> Accessiecode </th>
+            </tr>
+            </table>
+        {% if request.args.get('page') and  (not pagenummer == 0) %}
+            <form id="previous"  method="get">
+                <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+                <button> Vorige </button>
+            </form>
+        {% endif %}
+
+        <form id="next" method="get">
+            <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+            <button id= "nextbtn" > Volgende </button>
+        </form>
+
+    {% endif %}
 </div>
-
-
 
 {% endblock %}
 {% block footer %}
-    Als er een sequentie geblast moet worden, kan dit hier.<br>
-    De resultaten van BLAST worden hier weergeven.<br>
+    <p class="samenvatting">Als er een sequentie geblast moet worden, kan dit hier.
+        De resultaten van BLAST worden hier weergeven.</p>
 {% endblock %}

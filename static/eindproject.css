@@ -1,9 +1,33 @@
-* {
+/* css reset */
+*{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
+body{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.center{
+    margin: 0 auto;
+    width: 95%;
+    color: black;
+    background-color: lightsteelblue;
+    font-family: "american Typewriter", serif;
+    font-style: italic;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#hoofdimg{
+    width: 100%;
+    height: 350px;
+}
+
+/*********************** Navigatie ***********************/
 header {
     font-family: "american Typewriter", serif;
     text-transform: uppercase;
@@ -11,9 +35,7 @@ header {
     width: 100%;
     overflow: hidden;
     padding: 30px;
-    outline-style: groove;
-    outline-color: darkslateblue;
-    outline-width: 5px;
+    border: 5px groove darkslateblue;
 }
 
 header nav {
@@ -29,12 +51,12 @@ header nav ul li {
     display: flex;
 }
 
-header nav ul li a {
+header nav ul li a{
     text-decoration: none;
-    text-align: center;
     color: white;
     background-color: lightseagreen;
     padding: 10px;
+    text-align: center;
     border-radius: 5px;
     margin-right: 10px;
 }
@@ -44,37 +66,17 @@ header nav ul li a:hover {
     background-color: white;
 }
 
-body {
-    color: black;
-    background-color: lightsteelblue;
-    font-family: "american Typewriter", serif;
-    font-style: italic;
-    height: 100%;
-    min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-img{
-    width: 100%;
-    max-width: 200px;
-
-}
-
-footer {
-    background-color: lightseagreen;
-    width: 100%;
-    margin-top: auto;
-    min-height: 20px;
-    height: 100%;
-    outline-style: groove;
-    outline-color: lightskyblue;
-    outline-width: 5px;
-    align-self: flex-end;
+/******************* Home page ****************************/
+.home{
     padding: 30px;
 }
+
+p{
+    width: 600px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 .textwidth {
     max-width: 400px;
@@ -82,4 +84,154 @@ footer {
 
 div.content {
     flex-grow: 1;
+}
+
+
+/**************** organisme en protein pagina **************************/
+
+/********* Filter formulier *********************/
+.filter, .res{
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.filter h2{
+    font-size: 1.8em;
+}
+
+.filter p{
+    font-size: 1.6em;
+}
+.filter label{
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.filter select, .filter input, #blastseq{
+    font-size: 1.1em;
+}
+.waarschuwing{
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: ivory;
+    font-weight: bold;
+}
+.filter{
+
+    background: lightseagreen;
+}
+
+
+.filter h2{
+    text-align: center;
+}
+
+
+.filter select, .filter input[type=text], .filter input[type=number]{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filter input[type=checkbox]{
+    margin-bottom: 10px;
+}
+
+.filter #optioncontent{
+    display: none;
+}
+
+.filter #submitorg, .filter #submiteiwit, .filter #submitblast{
+    display: block;
+    padding: 5px;
+}
+
+/********************* Resultaten **********************/
+.res{
+    background-color: lightblue;
+}
+
+.res p{
+    font-weight: bold;
+    font-size: 1.6em;
+}
+#resultaten{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+#resultaten th, #resultaten td{
+    border: 1px solid #ffffff;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+
+/************** buttons voor de resultaten *****************/
+
+#previous button, #next button{
+    padding: 5px;
+}
+
+#next, #previous{
+    margin-top: 15px;
+    display: inline-block;
+}
+#next{
+    float: right;
+}
+
+/******************** Over ons ***************************/
+
+figure.overons{
+    margin: 30px;
+    display: inline-block;
+}
+
+figure.overons img {
+    width: 200px;
+}
+
+h2.overons, p.overons{
+    margin: 10px 20px 10px 30px;
+}
+
+
+/************************* Footer **************************/
+
+p.links{
+    color: ivory;
+}
+
+p.links, p.samenvatting{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+footer ul{
+    list-style-type: none;
+    margin-top: 5px;
+}
+
+footer ul li a{
+    text-decoration: none;
+    color: seagreen;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+footer{
+    background-color: lightseagreen;
+    width: 100%;
+    margin-top: auto;
+    min-height: 20px;
+    height: 100%;
+    border: 5px groove darkslateblue;
+    align-self: flex-end;
+    padding: 30px;
 }

@@ -1,0 +1,148 @@
+<!--
+    Pieter Verhoef
+    22-5-2020
+    Deze pagina bevat een formulier om op organisme niveau te kunnen filter op
+    BLAST resultaten, vervolgens worden deze resultaten getoond.
+-->
+
+{% extends "baseapp.html" %}
+{% block title %} organisme {% endblock %}
+
+{% block body %}
+
+    <form class = "filter" method="post">
+    <h2> Filter op organisme </h2>
+
+        <p class = "waarschuwing"> <strong> Houd er bij het filteren rekening mee
+            dat, als je filtert op familie en geslacht,
+            het geslacht binnen deze familie moet vallen
+            om resultaten te verkrijgen ook worden bij het filteren de onbekende
+            resultaten niet meegenomen. </strong></p>
+
+        <label for="selfamilie">Selecteer de familie waar je resultaten
+        van wilt zien</label>
+
+        <select name="selfamilie" id="selfamilie">
+
+            <option value="allefamilies" selected> Alle families (met onbekenden)</option>
+            <!-- Loop door alle families in de database -->
+            {% for row in (familie_cursor) %}
+
+                <option value="{{ row[0] }}"> {{ row[0] }}</option>
+
+            {% endfor %}
+        </select>
+
+        <label for="selgeslacht">Selecteer het geslacht waar je resultaten
+        van wilt zien</label>
+
+        <select name="selgeslacht" id="selgeslacht">
+
+            <option value="allegeslachten" selected> Alle geslachten (met onbekenden)</option>
+            <!-- Loop door alle geslachten in de database -->
+            {% for row in (geslachten_cursor) %}
+
+                <option value="{{ row[0] }} "> {{ row[0] }}</option>
+
+            {% endfor %}
+        </select>
+
+        <label for="selsoort">Selecteer de soort waar je resultaten
+        van wilt zien</label>
+
+        <select name="selsoort" id="selsoort">
+            <option value="allesoorten" selected> Alle soorten (met onbekenden) </option>
+            <!-- Loop door alle soorten in de database -->
+            {% for row in (soorten_cursor) %}
+
+                <option value="{{ row[0] }}"> {{ row[0] }}</option>
+
+            {% endfor %}
+        </select>
+
+        <label for="percentageidentity"> Voer het identity percentage in waarvan je
+            resultaten wilt zien</label>
+        <input type="number" name="percentageidentity" id="percentageidentity"
+        min="1" max="100" step="1" placeholder="Voer een geheel getal tussen 1 en 100 in"
+        required>
+
+        <!-- Optionele algoritme filters, toon deze bij aanklikken checkbox -->
+        <label for="optionparameters"> Toon algoritme parameters</label>
+        <input type="checkbox" id="optionparameters" name="optionparameters">
+
+        <div id = "optioncontent">
+            <label for="aantalres"> Selecteer het (max) aantal resultaten per pagina</label>
+            <select name="aantalres" id ="aantalres">
+                <option value="5"> 5 </option>
+                <option value="10"> 10 </option>
+                <option value="20" selected> 20 </option>
+                <option value="50"> 50 </option>
+            </select>
+            <label for = "evalue"> E-value(kleiner dan): </label>
+            <input type = "number" id="evalue" name="evalue" min=0 step="any" max="3"
+                   placeholder="Voer een getal tussen 0 en 3">
+        </div>
+
+        <input id= "submitorg" type="submit" name ="verzend" value="Bekijk resultaten">
+    </form>
+
+    <hr>
+    <div class = "res">
+    <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
+     {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
+        <p> Nog geen resultaten </p>
+    <!-- Toon resultaten -->
+    {% else %}
+
+        <p> Hierbij de resultaten </p>
+        <table id="resultaten">
+
+        <tr>
+            <th> Header </th>
+            <th> Familie </th>
+            <th> Geslacht </th>
+            <th> Soort </th>
+            <th> Score </th>
+            <th> Query cover</th>
+            <th> E-value </th>
+            <th> Percentage-identity</th>
+            <th> Positives </th>
+            <th> Accessiecode </th>
+        </tr>
+             <!-- Loop door alle resultaten en zet dit in de tabel -->
+             {% for resultaat in resultaten_cursor %}
+                 <tr>
+                 {% for item in resultaat %}
+                   <td> {{ item }}</td>
+                 {% endfor %}
+                 </tr>
+            {% endfor %}
+
+        </table>
+
+            <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
+             waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
+             hierbij wordt op de eerste pagina de button vorige niet getoond. -->
+
+        {% if request.args.get('page') and  (not pagenummer == 0) %}
+        <form id="previous" method="get">
+            <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+            <button> Vorige </button>
+        </form>
+        {% endif %}
+        <form id="next" method="get">
+            <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+            <button id= "nextbtn" > Volgende </button>
+        </form>
+    {% endif %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+    <p class="samenvatting">Op deze pagina is het mogelijk om op organisme niveau te filteren op
+        de BLAST resultaten. </p>
+{% endblock %}
+

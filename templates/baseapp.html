@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="/static/eindproject.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='eindproject.css') }}">
 </head>
-<body>
-    <header>
-        <nav>
+        <body>
+            <div class="center">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="/"> Home </a></li>
+                        <li><a href="/organisme"> Organisme </a></li>
+                        <li><a href="/protein"> Protein </a></li>
+                        <li><a href="/blast"> BLAST </a></li>
+                        <li><a href="overons"> Over ons </a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <img id="hoofdimg" src = "/static/champignonteeld1.jpg" alt = "plaatje champignon">
+            {% block body %}
+
+            {% endblock %}
+
+            <footer>
+            {% block footer %}
+
+            {% endblock %}
+            <p class = "links"> Links website </p>
             <ul>
                 <li><a href="/"> Home </a></li>
                 <li><a href="/organisme"> Organisme </a></li>
-                <li><a href="/proteine"> Protein </a></li>
+                <li><a href="/protein"> Protein </a></li>
                 <li><a href="/blast"> BLAST </a></li>
                 <li><a href="/overons"> Over ons </a></li>
             </ul>
-        </nav>
-        <img src="../static/paddestoel.png" alt="Logo van website">
-    </header>
-    <br>
-    <div class="text">
-    <br>
-         {% block body %}
+            </footer>
 
-        {% endblock %}
-    <br>
-    </div>
-
-<footer>
-    {% block footer %}
-
-    {% endblock %}
-    <br>
-    <li><a href=""> Home </a></li>
-    <li><a href="organisme"> Organisme </a></li>
-    <li><a href="proteines"> Protein </a></li>
-    <li><a href="blast"> BLAST </a></li>
-    <li><a href="overons"> Over ons </a></li>
-</footer>
-</body>
-
+            <script src="{{ url_for('static',
+                    filename='functies.js') }}"> </script>
+                </div>
+        </body>
 </html>
