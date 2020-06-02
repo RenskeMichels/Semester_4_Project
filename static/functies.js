@@ -43,7 +43,7 @@ function changeImage() {
          i = 0;
      }
     // Wacht 2 seconden.
-     setTimeout(changeImage, 2500);
+     setTimeout(changeImage, 4000);
 }
 
 window.onload = changeImage;

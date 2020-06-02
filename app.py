@@ -1,8 +1,11 @@
 # Pieter Verhoef
 # 24-5-2020
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 import sqlfuncties
+from Bio.Blast import NCBIWWW
+
+import re
 
 # Deze globale variabelen zijn nodig om de waardes te onthouden
 # nadat een POST formulier is verzonden, en daarna op de button
@@ -155,6 +158,53 @@ def protein():
     return render_template("protein.html", pagenummer=pagenummer,
                            eiwitnamen_cursor=eiwitnamen_cursor,
                            resultaten_cursor=resultaten_cursor)
+
+
+@app.route("/blast", methods=["POST", "GET"])
+def blast():
+    pagenummer = int(request.args.get('page', "0"))
+
+    if request.method == 'POST':
+
+        seq = request.form.get("blastseq").rstrip().lower()
+
+        dna = is_dna(seq)
+
+        if dna:
+            print("before blast")
+            blast_to_xml(seq)
+            print("after blast")
+            resultaten = get_results()
+            return render_template("blast.html", pagenummer=pagenummer,
+                                   resultaten=resultaten)
+        else:
+            return render_template("blast.html", pagenummer=pagenummer,
+                                   bericht="Voer AUB een DNA sequentie in")
+
+    return render_template("blast.html", pagenummer=pagenummer)
+
+
+def is_dna(seq):
+    return not re.search("[^atcgn]", seq)
+
+
+def blast_to_xml(seq):
+    """
+    Sequentie die van de website afkomt wordt geblast tegen de database
+    met het blastx algoritme
+    :param seq: DNA sequentie vanuit de website
+    :return: Het blast bestand
+    """
+    blast = NCBIWWW.qblast('blastx', 'nr', seq)
+    with open("blast.xml", "w") as out_handle:
+
+        out_handle.write(blast.read())
+        
+    blast.close()
+
+
+def get_results():
+    return ""
 
 
 if __name__ == '__main__':

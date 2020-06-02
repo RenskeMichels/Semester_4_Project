@@ -83,7 +83,7 @@
                    placeholder="Voer een getal tussen 0 en 3">
         </div>
 
-        <input id= "submitorg" type="submit" name ="verzend" value="Belijk resultaten">
+        <input id= "submitorg" type="submit" name ="verzend" value="Bekijk resultaten">
     </form>
 
     <hr>
@@ -94,46 +94,46 @@
     <!-- Toon resultaten -->
     {% else %}
 
-    <p> Hierbij de resultaten </p>
-    <table id="resultaten">
+        <p> Hierbij de resultaten </p>
+        <table id="resultaten">
 
-    <tr>
-        <th> Header </th>
-        <th> Familie </th>
-        <th> Geslacht </th>
-        <th> Soort </th>
-        <th> Score </th>
-        <th> Query cover</th>
-        <th> E-value </th>
-        <th> Percentage-identity</th>
-        <th> Positives </th>
-        <th> Accessiecode </th>
-    </tr>
-         <!-- Loop door alle resultaten en zet dit in de tabel -->
-         {% for resultaat in resultaten_cursor %}
-             <tr>
-             {% for item in resultaat %}
-               <td> {{ item }}</td>
-             {% endfor %}
-             </tr>
-        {% endfor %}
+        <tr>
+            <th> Header </th>
+            <th> Familie </th>
+            <th> Geslacht </th>
+            <th> Soort </th>
+            <th> Score </th>
+            <th> Query cover</th>
+            <th> E-value </th>
+            <th> Percentage-identity</th>
+            <th> Positives </th>
+            <th> Accessiecode </th>
+        </tr>
+             <!-- Loop door alle resultaten en zet dit in de tabel -->
+             {% for resultaat in resultaten_cursor %}
+                 <tr>
+                 {% for item in resultaat %}
+                   <td> {{ item }}</td>
+                 {% endfor %}
+                 </tr>
+            {% endfor %}
 
-    </table>
+        </table>
 
-        <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
-         waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
-         hierbij wordt op de eerste pagina de button vorige niet getoond. -->
+            <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
+             waarbij het mogelijk is om naar de vorige en volgende pagina te gaan.
+             hierbij wordt op de eerste pagina de button vorige niet getoond. -->
 
-    {% if request.args.get('page') and  (not pagenummer == 0) %}
-    <form id="previous" method="get">
-        <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
-        <button> Vorige </button>
-    </form>
-    {% endif %}
-    <form id="next" method="get">
-        <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
-        <button id= "nextbtn" > Volgende </button>
-    </form>
+        {% if request.args.get('page') and  (not pagenummer == 0) %}
+        <form id="previous" method="get">
+            <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+            <button> Vorige </button>
+        </form>
+        {% endif %}
+        <form id="next" method="get">
+            <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+            <button id= "nextbtn" > Volgende </button>
+        </form>
     {% endif %}
 
     </div>

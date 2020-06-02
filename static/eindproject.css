@@ -78,7 +78,7 @@ header nav ul li a:hover{
     font-weight: bold;
 }
 
-.filter select{
+.filter select, .filter input, .filter textarea{
     font-size: 1.1em;
 }
 .waarschuwing{
