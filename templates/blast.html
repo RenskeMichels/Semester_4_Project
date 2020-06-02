@@ -1,0 +1,47 @@
+{% extends "base_app.html" %}
+{% block title %}
+    Blast
+{% endblock %}
+{% block body %}
+    <h2>BLAST</h2><br>
+    Hier kan je een sequentie invoeren die dan geblast gaat worden.<br>
+    De resultaten worden dan hier onder weergeven.<br>
+    <form method="post">
+        <label for="input_seq"> Invoer sequentie:</label><br>
+        <textarea id="input_seq" rows="4" cols="70" name="seq">Vul hier een sequentie in.</textarea>
+        <input type="submit" value="Verzend">
+    </form>
+    <div class = "res">
+    <p> Hieronder komen de resultaten</p>
+    <table id="resultaten">
+<tr>
+    <th> Familie </th>
+    <th> Geslacht </th>
+    <th> Soort </th>
+    <th> Score </th>
+    <th> Query cover</th>
+    <th> E-value </th>
+    <th> Percentage-identity</th>
+    <th> Positives </th>
+    <th> Accessiecode </th>
+</tr>
+</table>
+    <!-- Twee buttons om de resultaten te spreiden over meerdere pagina's
+    waarbij het mogelijk is om naar de vorige en volgende pagina te gaan. -->
+<form id="previous" class= "disableprev" method="get">
+    <input type="hidden" name="page" value="{{ pagenummer - 1 }}">
+    <button> Vorige </button>
+</form>
+<form id="next" method="get">
+    <input type="hidden"  name="page" value="{{ pagenummer + 1 }}">
+    <button id= "nextbtn" > Volgende </button>
+</form>
+</div>
+
+
+
+{% endblock %}
+{% block footer %}
+    Als er een sequentie geblast moet worden, kan dit hier.<br>
+    De resultaten van BLAST worden hier weergeven.<br>
+{% endblock %}
