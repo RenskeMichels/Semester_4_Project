@@ -9,6 +9,8 @@
 from Bio.Blast import NCBIWWW
 import inlezen_xml
 import re
+import os
+
 
 def blast_to_xml(seq):
     """
@@ -18,6 +20,7 @@ def blast_to_xml(seq):
     :return: Het blast bestand
     """
     blast = NCBIWWW.qblast('blastx', 'nr', seq)
+    os.remove("my_blast.xml")
     with open("my_blast.xml", "a") as out_handle:
         out_handle.write(blast.read())
 
