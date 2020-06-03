@@ -30,16 +30,21 @@
 
         <table id="resultaten">
             <tr>
-                <th> Familie </th>
-                <th> Geslacht </th>
-                <th> Soort </th>
                 <th> Score </th>
-                <th> Query cover</th>
                 <th> E-value </th>
                 <th> Percentage-identity</th>
                 <th> Positives </th>
                 <th> Accessiecode </th>
+                <th> Eiwitnaam </th>
             </tr>
+            {% for resultaat in resultaten %}
+                <tr>
+                {% for item in resultaat %}
+                    <td> {{ item }}</td>
+
+                {% endfor %}
+                </tr>
+            {% endfor %}
             </table>
         {% if request.args.get('page') and  (not pagenummer == 0) %}
             <form id="previous"  method="get">

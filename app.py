@@ -3,8 +3,8 @@
 
 from flask import Flask, render_template, request
 import sqlfuncties
-from Bio.Blast import NCBIWWW
 import re
+import blast as bl
 
 # Deze globale variabelen zijn nodig om de waardes te onthouden
 # nadat een POST formulier is verzonden, en daarna op de button
@@ -23,6 +23,7 @@ aantal_per_pagina_protein = None
 percentage_identity_protein = None
 e_value_protein = None
 eiwitnaam = None
+
 
 app = Flask(__name__)
 
@@ -161,54 +162,50 @@ def protein():
 
 @app.route("/blast", methods=["POST", "GET"])
 def blast():
+    """
+    Pagina waarop het mogelijk is om op één sequentie BLAST uit te voeren.
+    """
+
+    # Haal paginanummer uit url,
+    # mocht deze niet url staan dan ben je op de eerste pagina.
     pagenummer = int(request.args.get('page', "0"))
 
+    resultaten = ""
+    # Alleen resultaten laten zien wanneer een formulier is verzonden en
+    # het paginanummer in de url staat.
+    if "page" in request.args:
+        # Haal resultaten op.
+        resultaten = bl.get_results(pagenummer)
+
+    # Formulies verzonden
     if request.method == 'POST':
 
         seq = request.form.get("blastseq").rstrip().lower()
-
         dna = is_dna(seq)
 
         if dna:
-            print("before blast")
-            blast_to_xml(seq)
-            print("after blast")
-            resultaten = get_results()
+            # Voer BLAST uit en bepaal resultaten
+            bl.blast_to_xml(seq)
+            resultaten = bl.get_results(pagenummer)
             return render_template("blast.html", pagenummer=pagenummer,
                                    resultaten=resultaten)
         else:
             return render_template("blast.html", pagenummer=pagenummer,
                                    bericht="Voer AUB een DNA sequentie in")
 
-    return render_template("blast.html", pagenummer=pagenummer)
+    return render_template("blast.html", pagenummer=pagenummer, resultaten=
+                           resultaten)
 
 
 @app.route('/overons')
 def overons():
+    """ Over ons pagina """
     return render_template("overons.html")
 
 
 def is_dna(seq):
+    """ checkt of een sequentie een DNA sequentie is"""
     return not re.search("[^atcgn]", seq)
-
-
-def blast_to_xml(seq):
-    """
-    Sequentie die van de website afkomt wordt geblast tegen de database
-    met het blastx algoritme
-    :param seq: DNA sequentie vanuit de website
-    :return: Het blast bestand
-    """
-    blast = NCBIWWW.qblast('blastx', 'nr', seq)
-    with open("blast.xml", "w") as out_handle:
-
-        out_handle.write(blast.read())
-        
-    blast.close()
-
-
-def get_results():
-    return ""
 
 
 if __name__ == '__main__':
