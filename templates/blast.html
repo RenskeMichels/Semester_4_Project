@@ -17,7 +17,7 @@
         placeholder="Vul hier een sequentie in." required></textarea>
         <input type="submit" id="submitblast" name ="verzend" value="BLAST">
     </form>
-
+    <hr>
     <div class = "res">
      <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
      {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
