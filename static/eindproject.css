@@ -235,7 +235,7 @@ footer{
     margin-top: auto;
     min-height: 20px;
     height: 100%;
-    border: 5px groove darkslateblue;
+    border: 5px groove lightskyblue;
     align-self: flex-end;
     padding: 30px;
 }
