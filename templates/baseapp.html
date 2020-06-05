@@ -6,8 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='eindproject.css') }}">
 </head>
         <body>
-            <div class="center">
             <header>
+
+                <a href="/"> <img class="fotohome"
+                   src="/static/paddestoel.png" alt="Home logo"></a>
+
                 <nav>
                     <ul>
                         <li><a href="/"> Home </a></li>
@@ -16,6 +19,7 @@
                         <li><a href="/blast"> BLAST </a></li>
                         <li><a href="overons"> Over ons </a></li>
                     </ul>
+
                 </nav>
             </header>
 
@@ -40,6 +44,5 @@
 
             <script src="{{ url_for('static',
                     filename='functies.js') }}"> </script>
-                </div>
         </body>
 </html>
