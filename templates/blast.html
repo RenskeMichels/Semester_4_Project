@@ -20,7 +20,7 @@
     <hr>
     <div class = "res">
      <!-- formulier niet verzonden en niet op een van de buttons geklikt. -->
-     {% if (not request.form.get("verzend")) and not (request.args.get("page")) %}
+     {% if ((not request.form.get("verzend")) and not (request.args.get("page"))) or bericht%}
         <p> Nog geen resultaten </p>
 
      <!-- Toon resultaten -->

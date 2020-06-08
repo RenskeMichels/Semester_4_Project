@@ -56,7 +56,9 @@ def get_results(paginanummer):
     resultaten = []
     paginanummer = int(paginanummer)
     start = paginanummer * aantal_per_pagina
-    for i in range(start, start+aantal_per_pagina, 1):
+    print("test", len(max_scores), (start + aantal_per_pagina))
+
+    for i in range(start, min(len(max_scores), start+aantal_per_pagina), 1):
         if "Blast" not in max_scores[i]:
             a_name = a_names[i]
             a_name = a_name.replace(re.search(r'\[.+\]', a_name)
