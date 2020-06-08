@@ -56,7 +56,6 @@ def get_results(paginanummer):
     resultaten = []
     paginanummer = int(paginanummer)
     start = paginanummer * aantal_per_pagina
-    print("test", len(max_scores), (start + aantal_per_pagina))
 
     for i in range(start, min(len(max_scores), start+aantal_per_pagina), 1):
         if "Blast" not in max_scores[i]:
