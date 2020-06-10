@@ -11,7 +11,7 @@
 def lees_bestand():
     try:
         data = list()
-        for i in open("my_blast.xml"):
+        for i in open("BLAST/my_blast.xml"):
             data.append(i.strip())
         return data
     except ValueError:
